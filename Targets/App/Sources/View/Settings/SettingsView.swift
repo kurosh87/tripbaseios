@@ -57,6 +57,13 @@ struct SettingsView: View {
 					}
 				}
 
+				// Add new section for user preferences before the developer section
+				Section("Preferences") {
+					NavigationLink(value: SettingsPath.preferences) {
+						SettingsRowItem(.preferences)
+					}
+				}
+
 				#if DEBUG
 				// Developer Settings Section (Debug Only)
 				Section("DEVELOPER") {
@@ -117,6 +124,8 @@ struct SettingsView: View {
 						PrivacyView()
 					case .developer:
 						DeveloperSettingsView()
+					case .preferences:
+						UserPreferencesView()
 					default:
 						// If an undefined destination -> Show a Text with the setting label
 						ZStack {
@@ -231,6 +240,7 @@ enum SettingsPath: Hashable, Equatable {
 	case aboutDeveloper
 	case reportBug
 	case developer
+	case preferences
 
 	var data: SettingsRowData {
 		switch self {
@@ -264,6 +274,10 @@ enum SettingsPath: Hashable, Equatable {
 				SettingsRowData(
 					iconName: "hammer.fill", iconBackgroundColor: .indigo, label: "Developer Settings",
 					analyticsDescription: "developer_settings")
+			case .preferences:
+				SettingsRowData(
+					iconName: "moon.stars.fill", iconBackgroundColor: .indigo, label: "Sleep & Routine",
+					analyticsDescription: "user_preferences")
 		}
 	}
 }
