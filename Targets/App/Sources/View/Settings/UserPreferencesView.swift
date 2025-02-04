@@ -1,4 +1,5 @@
 import SwiftUI
+import SharedKit
 
 /// Represents different chronotype options for sleep patterns
 enum Chronotype: String, CaseIterable {
@@ -21,7 +22,7 @@ enum Chronotype: String, CaseIterable {
     }
 }
 
-struct UserPreferencesView: View {
+public struct UserPreferencesView: View {
     @AppStorage("wakeUpTime") private var wakeUpTime = Calendar.current.date(from: DateComponents(hour: 7, minute: 0)) ?? Date()
     @AppStorage("bedTime") private var bedTime = Calendar.current.date(from: DateComponents(hour: 23, minute: 0)) ?? Date()
     @AppStorage("chronotype") private var chronotype = Chronotype.bear.rawValue
