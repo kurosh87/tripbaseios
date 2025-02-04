@@ -13,6 +13,33 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
+// FlightsView Component
+struct FlightsView: View {
+	var body: some View {
+		NavigationStack {
+			VStack {
+				Text("Map View Coming Soon")
+					.font(.title)
+					.padding()
+				
+				Text("We're working on integrating the map view.")
+					.foregroundColor(.gray)
+			}
+			.navigationTitle("Flights")
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				ToolbarItem(placement: .navigationBarTrailing) {
+					Button(action: {
+						// TODO: Implement search
+					}) {
+						Image(systemName: "magnifyingglass")
+					}
+				}
+			}
+		}
+	}
+}
+
 // Home View Component
 struct HomeView: View {
 	@State private var selectedDate = Date()
