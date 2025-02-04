@@ -88,11 +88,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, OSNotificationLifecycleListe
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-		// Initialize AnalyticsKit
-		Analytics.initPostHog()
+		// Initialize AnalyticsKit with PostHog
+		Analytics.initPostHog(apiKey: "phc_7GvpXIu3belUNp8bqpDIOn2hL5QsPvikgegHIW0vV7i")
+		
+		// Initialize RevenueCat
 		InAppPurchases.initRevenueCat()
-		// Initialize DBKit and AuthKit
+		
+		// Initialize Firebase
 		DB.initFirebase()
+
+		// Initialize OneSignal with proper configuration
+		PushNotifications.initOneSignal(
+			appId: "6fb74dbc-bb2e-4ec2-a6c5-ca84fa0ee7b8",
+			launchOptions: launchOptions
+		)
 
 		// Detect if the app crashed during last execution
 		// if yes -> send an event to PostHog and show an in-app notification
