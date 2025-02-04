@@ -11,36 +11,122 @@ import NotifKit
 import SharedKit
 import SwiftUI
 
-struct ContentView: View {
+// Flights View Component
+struct FlightsView: View {
+	var body: some View {
+		NavigationView {
+			VStack(spacing: 20) {
+				Image(systemName: "airplane")
+					.font(.system(size: 60))
+					.foregroundColor(.blue)
+					.padding()
+				
+				Text("Flights Coming Soon")
+					.font(.title2)
+				
+				Text("This feature is under development")
+					.foregroundColor(.gray)
+			}
+			.navigationTitle("Flights")
+		}
+	}
+}
 
+// Home View Component
+struct HomeView: View {
+	@State private var selectedDate = Date()
+	
+	var body: some View {
+		NavigationView {			ScrollView {
+				VStack(spacing: 0) {
+					// Date selector
+					HStack {
+						Button(action: { 
+							selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate) ?? selectedDate 
+						}) {
+							Image(systemName: "chevron.left")
+						}
+						
+						Text(selectedDate.formatted(date: .complete, time: .omitted))
+							.font(.headline)
+							.padding()
+						
+						Button(action: { 
+							selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? selectedDate 
+						}) {
+							Image(systemName: "chevron.right")
+						}
+					}
+					.padding()
+					
+					// 24-hour timeline
+					VStack(spacing: 0) {
+						ForEach(0..<24) { hour in
+							HourRow(hour: hour)
+						}
+					}
+				}
+			}
+			.navigationTitle("Schedule")
+		}
+	}
+}
+
+// Hour row component
+struct HourRow: View {
+	let hour: Int
+	
+	var body: some View {
+		HStack(alignment: .top) {
+			// Time label
+			Text(String(format: "%02d:00", hour))
+				.font(.caption)
+				.frame(width: 50)
+				.foregroundColor(.gray)
+			
+			// Hour content
+			VStack {
+				Rectangle()
+					.fill(Color.gray.opacity(0.2))
+					.frame(height: 1)
+				
+				Rectangle()
+					.fill(Color.clear)
+					.frame(height: 59)
+					.overlay(
+						Rectangle()
+							.fill(Color.gray.opacity(0.1))
+							.frame(height: 1),
+						alignment: .bottom
+					)
+			}
+		}
+		.frame(height: 60)
+	}
+}
+
+struct ContentView: View {
 	var body: some View {
 		TabView {
+			// Home screen with calendar
+			Tab("Home", systemImage: "house") {
+				HomeView()
+			}
+
+			// Flights placeholder screen
+			Tab("Flights", systemImage: "airplane") {
+				FlightsView()
+			}
 
 			// View with AIKit Examples.
 			Tab("AIKit Examples", systemImage: "sparkles.rectangle.stack") {
 				AIKitExamplesView()
 			}
 
-			// Example view on how to access the Database.
-			Tab("DB Examples", systemImage: "externaldrive.badge.icloud") {
-				DatabaseExampleView()
-			}
-
 			// Pre-made Settings View for easy native-looking settings screen.
 			Tab("Settings", systemImage: "gear") {
 				SettingsView()
 			}
-
-			#if DEBUG
-
-				TabSection("DEBUG ONLY") {
-					// Use this to create quick settings and toggles to streamline the development process
-					Tab("Developer", systemImage: "hammer") {
-						DeveloperSettingsView()
-					}
-				}
-
-			#endif
 		}
 	}
 }

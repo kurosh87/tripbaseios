@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -92,6 +92,8 @@
 		B553942AB6B41A5381AFD08E /* VideoPlayerAlphaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5CECD223ECE340CEDF6EF /* VideoPlayerAlphaView.swift */; };
 		B59CAEE84E4F2EA630AB871B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D4F2FCFBC0E04AAC979BB /* Button.swift */; };
 		B7637639D6830269565E671A /* modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D441787B3DC9CF17E301DF /* modifier.swift */; };
+		B7F1EABF2D51CA8F00D3143E /* CalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F1EAB72D51CA8F00D3143E /* CalendarKit.framework */; };
+		B7F1EAC02D51CA8F00D3143E /* CalendarKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7F1EAB72D51CA8F00D3143E /* CalendarKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BD23DC94423AA52488DD0D98 /* askUserFor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E89FF02A88499B37F1086E /* askUserFor.swift */; };
 		BE08AC19B9B8075BBFC7D05A /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153CCD43D9C9CE837EAAE4B0 /* UIImage+Extensions.swift */; };
 		BEC9695B28B94E78A9DF791A /* VerifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783A36A14D37645C06EF5686 /* VerifyEmailView.swift */; };
@@ -214,6 +216,13 @@
 			remoteGlobalIDString = DAEEF051BAE6DD4F5AA8B55D;
 			remoteInfo = SharedKit;
 		};
+		B7F1EABD2D51CA8F00D3143E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26916846E690EA1FF993A793 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B7F1EAB62D51CA8F00D3143E;
+			remoteInfo = CalendarKit;
+		};
 		BB8B2A5F61DCAF828427B39C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 26916846E690EA1FF993A793 /* Project object */;
@@ -254,6 +263,7 @@
 				8DDC55FB28293EFC04991900 /* AIKit.framework in Embed Frameworks */,
 				C805A0D77B765670AD018F60 /* AnalyticsKit.framework in Embed Frameworks */,
 				DD1A08DEC1FEDD4B205D326B /* FirebaseKit.framework in Embed Frameworks */,
+				B7F1EAC02D51CA8F00D3143E /* CalendarKit.framework in Embed Frameworks */,
 				620D48F7FEE6D8DE56A7F495 /* InAppPurchaseKit.framework in Embed Frameworks */,
 				CF9CD152BA26A59A45C3C4D8 /* NotifKit.framework in Embed Frameworks */,
 				B4E6EE54EB8C82364CC3B3CD /* SharedKit.framework in Embed Frameworks */,
@@ -385,7 +395,7 @@
 		85C1E350A1F91A043CF5BFF1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		872CDED779A29004BC5762FB /* tripbase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tripbase.entitlements; sourceTree = "<group>"; };
 		882B689F7BFBD7040FD36E54 /* InAppPurchaseKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "InAppPurchaseKit-Info.plist"; sourceTree = "<group>"; };
-		8A4CF43B693519507211CA3F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8A4CF43B693519507211CA3F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8AD6F248DA34BA9B9C1B1F00 /* if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = if.swift; sourceTree = "<group>"; };
 		8CE8DD1259C6E1AC7D4A060E /* AIKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AIKit-Info.plist"; sourceTree = "<group>"; };
 		8E4D78FE0E91BEED27FE036F /* FirebaseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -410,6 +420,7 @@
 		B14EFF3AC1DA1A3237D234D3 /* ReAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReAuthSheet.swift; sourceTree = "<group>"; };
 		B1720FF38DF478B986BA50B0 /* AIKitExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIKitExamplesView.swift; sourceTree = "<group>"; };
 		B5A8F5907BE76007A0EC511C /* NotifKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NotifKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7F1EAB72D51CA8F00D3143E /* CalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B89A715A4C65BD12A59D72B4 /* AnalyticsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnalyticsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D29824347CF13851B5BF64 /* TuistBundle+SharedKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+SharedKit.swift"; sourceTree = "<group>"; };
 		BAA5B18687A47099479B8AA1 /* SharedKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SharedKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -451,6 +462,7 @@
 				E2321406E51625984DD35C40 /* FirebaseKit.framework in Frameworks */,
 				79D538C285CE58106D1C0703 /* InAppPurchaseKit.framework in Frameworks */,
 				3CF4692C6F9468CF8A51838D /* NotifKit.framework in Frameworks */,
+				B7F1EABF2D51CA8F00D3143E /* CalendarKit.framework in Frameworks */,
 				1A07D0A19F44C1ACCE788B91 /* SharedKit.framework in Frameworks */,
 				29C33DF7B8B7CFBB660542D2 /* OneSignalFramework in Frameworks */,
 			);
@@ -493,6 +505,13 @@
 				897379A56AC56EE43E8914B4 /* SharedKit.framework in Frameworks */,
 				AA4ACB4208DD309C0A3F930D /* RevenueCat in Frameworks */,
 				70E2698453CA3FB2BE11D104 /* RevenueCatUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7F1EAB42D51CA8F00D3143E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +712,7 @@
 				3781A7F6B82CE46798B86782 /* OneSignalNotificationServiceExtension.appex */,
 				BAA5B18687A47099479B8AA1 /* SharedKit.framework */,
 				744A5D4F01B1F2E40B114FC9 /* tripbase.app */,
+				B7F1EAB72D51CA8F00D3143E /* CalendarKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1165,6 +1185,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		B7F1EAB22D51CA8F00D3143E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		102898C346CB5EC1E0BD458D /* InAppPurchaseKit */ = {
 			isa = PBXNativeTarget;
@@ -1256,6 +1286,7 @@
 				9BE4055EC4FC5483C155EC3D /* PBXTargetDependency */,
 				6F07B12ADE5FF03B79D54050 /* PBXTargetDependency */,
 				433DE7121491BFA09D1BF06F /* PBXTargetDependency */,
+				B7F1EABE2D51CA8F00D3143E /* PBXTargetDependency */,
 			);
 			name = tripbase;
 			packageProductDependencies = (
@@ -1314,6 +1345,26 @@
 			productReference = B5A8F5907BE76007A0EC511C /* NotifKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B7F1EAB62D51CA8F00D3143E /* CalendarKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7F1EAC42D51CA8F00D3143E /* Build configuration list for PBXNativeTarget "CalendarKit" */;
+			buildPhases = (
+				B7F1EAB22D51CA8F00D3143E /* Headers */,
+				B7F1EAB32D51CA8F00D3143E /* Sources */,
+				B7F1EAB42D51CA8F00D3143E /* Frameworks */,
+				B7F1EAB52D51CA8F00D3143E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CalendarKit;
+			packageProductDependencies = (
+			);
+			productName = CalendarKit;
+			productReference = B7F1EAB72D51CA8F00D3143E /* CalendarKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		BA3C8C18DD97BA9D3E545EBE /* OneSignalNotificationServiceExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46EF3AA3EE331838E72E2C03 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
@@ -1361,6 +1412,9 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				TargetAttributes = {
+					B7F1EAB62D51CA8F00D3143E = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
 			buildConfigurationList = 9B1637A5011215C1DA754CEC /* Build configuration list for PBXProject "tripbase" */;
@@ -1392,6 +1446,7 @@
 				BA3C8C18DD97BA9D3E545EBE /* OneSignalNotificationServiceExtension */,
 				DAEEF051BAE6DD4F5AA8B55D /* SharedKit */,
 				6368A4E50032B61131FE22E3 /* tripbase */,
+				B7F1EAB62D51CA8F00D3143E /* CalendarKit */,
 			);
 		};
 /* End PBXProject section */
@@ -1434,6 +1489,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AEAA3E9FFB12D02F40574A91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7F1EAB52D51CA8F00D3143E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1548,6 +1610,13 @@
 				7B412773DF79023997D5A778 /* Analytics.swift in Sources */,
 				5A0C5741350AB601B30F2F91 /* captureTaps.swift in Sources */,
 				38559898632F0F869B9D682A /* captureViewActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7F1EAB32D51CA8F00D3143E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1710,6 +1779,11 @@
 			target = 26384C38FA45254BFB619C61 /* AnalyticsKit */;
 			targetProxy = F3CBCA9868B8AA8EBD43DBC9 /* PBXContainerItemProxy */;
 		};
+		B7F1EABE2D51CA8F00D3143E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B7F1EAB62D51CA8F00D3143E /* CalendarKit */;
+			targetProxy = B7F1EABD2D51CA8F00D3143E /* PBXContainerItemProxy */;
+		};
 		DC9C762F879E4E880DA38135 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SharedKit;
@@ -1733,6 +1807,7 @@
 				CODE_SIGN_ENTITLEMENTS = Derived/Entitlements/tripbase.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/tripbase-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
@@ -1747,10 +1822,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1815,10 +1887,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1885,10 +1954,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1906,6 +1972,7 @@
 				CODE_SIGN_ENTITLEMENTS = Derived/Entitlements/tripbase.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/tripbase-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
@@ -2041,10 +2108,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2144,10 +2208,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2181,10 +2242,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2270,10 +2328,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2344,6 +2399,96 @@
 			};
 			name = Debug;
 		};
+		B7F1EAC12D51CA8F00D3143E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.tripbase.app.CalendarKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B7F1EAC22D51CA8F00D3143E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.tripbase.app.CalendarKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		CF5A80B1E00CB96285850476 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2368,10 +2513,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2461,6 +2603,15 @@
 			buildConfigurations = (
 				A48D128AA1A53241F98E56B7 /* Debug */,
 				7CF9279BA9ABFE3D4491E88E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7F1EAC42D51CA8F00D3143E /* Build configuration list for PBXNativeTarget "CalendarKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7F1EAC12D51CA8F00D3143E /* Debug */,
+				B7F1EAC22D51CA8F00D3143E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

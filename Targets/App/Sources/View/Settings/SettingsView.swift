@@ -57,6 +57,23 @@ struct SettingsView: View {
 					}
 				}
 
+				#if DEBUG
+				// Developer Settings Section (Debug Only)
+				Section("DEVELOPER") {
+					NavigationLink(value: SettingsPath.developer) {
+						HStack(spacing: 15) {
+							Image(systemName: "hammer.fill")
+								.foregroundStyle(.white)
+								.font(.callout)
+								.frame(width: 25, height: 25)
+								.background(Color.indigo.gradient)
+								.clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+							Text("Developer Settings")
+						}
+					}
+				}
+				#endif
+
 				// Developer Contact Section
 				Section {
 					LinkRow(
@@ -79,7 +96,6 @@ struct SettingsView: View {
 			}
 			.navigationTitle("Settings")
 			.navigationDestination(for: SettingsPath.self) { setting in
-
 				switch setting {
 					case .account:
 						// AuthKit + DBKit
@@ -99,6 +115,8 @@ struct SettingsView: View {
 						}
 					case .privacy:
 						PrivacyView()
+					case .developer:
+						DeveloperSettingsView()
 					default:
 						// If an undefined destination -> Show a Text with the setting label
 						ZStack {
@@ -212,6 +230,7 @@ enum SettingsPath: Hashable, Equatable {
 	case premium
 	case aboutDeveloper
 	case reportBug
+	case developer
 
 	var data: SettingsRowData {
 		switch self {
@@ -241,6 +260,10 @@ enum SettingsPath: Hashable, Equatable {
 				SettingsRowData(
 					iconName: "exclamationmark.bubble.fill", iconBackgroundColor: .orange,
 					label: "Report a Problem", analyticsDescription: "report_problem")
+			case .developer:
+				SettingsRowData(
+					iconName: "hammer.fill", iconBackgroundColor: .indigo, label: "Developer Settings",
+					analyticsDescription: "developer_settings")
 		}
 	}
 }

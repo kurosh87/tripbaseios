@@ -41,17 +41,15 @@ extension DB {
     public func deleteUser() async throws {
         Analytics.capture(.info, id: "delete_user_called", source: .auth)
 
-        guard
-        else {
+        guard let user = currentUser else {
             let error = AuthKitError.noUserSignedIn
             error.sendToAnalytics(longDescription: "Error deleting user: No user signed in.")
             throw error
         }
 
-
         do {
-            try await currentUser.delete()
-            let userID = currentUser.uid
+            try await user.delete()
+            let userID = user.uid
             try signOut()
             Analytics.capture(.success, id: "delete_user", longDescription: "Deleted User with id: \(userID)", source: .auth)
         } catch {
