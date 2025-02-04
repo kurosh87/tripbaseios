@@ -11,6 +11,9 @@ import NotifKit
 import SharedKit
 import SwiftUI
 
+// Import local views
+@_exported import UserPreferences
+
 struct SettingsView: View {
 
 	@EnvironmentObject var iap: InAppPurchases
