@@ -33,31 +33,78 @@ firebase init firestore
 ## API Security
 
 ### Credential Management
-We use a template-based approach to secure API credentials:
+We use a template-based approach to secure API credentials. There are two main types of sensitive files:
 
-1. Template file: `tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.template.json`
-   - Contains structure with placeholder values
-   - Safe to commit to GitHub
+1. **Firebase Service Account**
+   - Template: `tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.template.json`
+   - Actual: `tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.json` (not in repo)
 
-2. Actual credentials: `tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.json`
-   - Contains real Firebase credentials
-   - Listed in .gitignore
-   - Never committed to GitHub
+2. **API Keys Configuration**
+   - Template: `src/config.template.ts`
+   - Actual: `src/config.ts` (not in repo)
 
-### Setup Instructions
-1. Download Firebase service account credentials from Firebase Console
-2. Copy the template file:
+### Setup Instructions for New Developers
+
+1. **Firebase Service Account**
    ```bash
-   cp Backend/firebase-func/functions/tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.template.json Backend/firebase-func/functions/tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.json
+   # Navigate to Backend/tools
+   cd Backend/tools
+   
+   # Run the setup script
+   node setup-credentials.js
    ```
-3. Replace placeholder values in the copied file with actual credentials
-4. Keep the template file updated if structure changes
 
-### Best Practices
-1. Never commit actual credentials to version control
-2. Keep template file up to date with credential structure
-3. Document credential setup in project README
-4. Use environment variables for additional security
+2. **API Keys Configuration**
+   ```bash
+   # Navigate to functions directory
+   cd Backend/firebase-func/functions/src
+   
+   # Copy template
+   cp config.template.ts config.ts
+   
+   # Edit config.ts with your actual keys
+   ```
+
+### Security Measures in Place
+
+1. **Git Protection**
+   - Both actual credential files are listed in `.gitignore`
+   - Template files show the required structure
+   - GitHub secret scanning enabled to catch accidental commits
+
+2. **File Structure**
+   ```
+   Backend/
+   ├── firebase-func/
+   │   └── functions/
+   │       ├── src/
+   │       │   ├── config.template.ts  (in repo)
+   │       │   └── config.ts           (local only)
+   │       ├── tripbase-*-template.json (in repo)
+   │       └── tripbase-*.json         (local only)
+   ```
+
+3. **Validation**
+   - GitHub push protection enabled
+   - Secret scanning for accidental API key commits
+   - Local git hooks (recommended)
+
+### Best Practices for Credentials
+
+1. **Never commit actual credentials**
+   - Always use template files
+   - Keep sensitive files in `.gitignore`
+   - Use environment variables when possible
+
+2. **Credential Rotation**
+   - Regularly rotate API keys
+   - Update team members securely
+   - Document rotation procedures
+
+3. **Access Control**
+   - Limit access to production credentials
+   - Use different keys for development
+   - Implement proper role-based access
 
 ## User Preferences
 
