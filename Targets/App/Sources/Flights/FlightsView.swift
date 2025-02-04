@@ -22,50 +22,41 @@ struct FlightsView: View {
     @State private var mapType: MKMapType = .standard
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Full screen map
-                Map(coordinateRegion: $region,
-                    showsUserLocation: true,
-                    userTrackingMode: .constant(.follow),
-                    mapType: mapType)
-                    .ignoresSafeArea()
-                
-                // Map controls
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 10) {
-                            // Map type toggle
-                            Button(action: {
-                                mapType = mapType == .standard ? .hybrid : .standard
-                            }) {
-                                Image(systemName: mapType == .standard ? "map" : "map.fill")
-                                    .padding()
-                                    .background(Color(.systemBackground))
-                                    .clipShape(Circle())
-                                    .shadow(radius: 4)
-                            }
-                            
-                            // Location button
-                            Button(action: {
-                                if let location = locationManager.location {
-                                    withAnimation {
-                                        region.center = location.coordinate
-                                    }
-                                }
-                            }) {
-                                Image(systemName: "location.fill")
-                                    .padding()
-                                    .background(Color(.systemBackground))
-                                    .clipShape(Circle())
-                                    .shadow(radius: 4)
+        NavigationStack {
+            Map(
+                coordinateRegion: $region,
+                showsUserLocation: true,
+                userTrackingMode: .constant(.follow),
+                mapStyle: mapType == .standard ? .standard : .hybrid
+            )
+            .ignoresSafeArea(edges: .vertical)
+            .overlay(alignment: .bottomTrailing) {
+                VStack(spacing: 10) {
+                    Button(action: {
+                        mapType = mapType == .standard ? .hybrid : .standard
+                    }) {
+                        Image(systemName: mapType == .standard ? "map" : "map.fill")
+                            .padding()
+                            .background(Color(.systemBackground))
+                            .clipShape(Circle())
+                            .shadow(radius: 4)
+                    }
+                    
+                    Button(action: {
+                        if let location = locationManager.location {
+                            withAnimation {
+                                region.center = location.coordinate
                             }
                         }
-                        .padding()
+                    }) {
+                        Image(systemName: "location.fill")
+                            .padding()
+                            .background(Color(.systemBackground))
+                            .clipShape(Circle())
+                            .shadow(radius: 4)
                     }
                 }
+                .padding()
             }
             .navigationTitle("Flights")
             .navigationBarTitleDisplayMode(.inline)
