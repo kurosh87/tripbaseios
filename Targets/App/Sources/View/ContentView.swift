@@ -35,39 +35,89 @@ struct FlightsView: View {
 // Home View Component
 struct HomeView: View {
 	@State private var selectedDate = Date()
+	@State private var hasSchedule = false // Toggle this to see different states
 	
 	var body: some View {
-		NavigationView {			ScrollView {
-				VStack(spacing: 0) {
-					// Date selector
-					HStack {
-						Button(action: { 
-							selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate) ?? selectedDate 
-						}) {
-							Image(systemName: "chevron.left")
-						}
-						
-						Text(selectedDate.formatted(date: .complete, time: .omitted))
-							.font(.headline)
-							.padding()
-						
-						Button(action: { 
-							selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? selectedDate 
-						}) {
-							Image(systemName: "chevron.right")
-						}
-					}
-					.padding()
-					
-					// 24-hour timeline
+		NavigationView {
+			if hasSchedule {
+				// Populated state with schedule
+				ScrollView {
 					VStack(spacing: 0) {
-						ForEach(0..<24) { hour in
-							HourRow(hour: hour)
+						// Date selector
+						HStack {
+							Button(action: { 
+								selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate) ?? selectedDate 
+							}) {
+								Image(systemName: "chevron.left")
+							}
+							
+							Text(selectedDate.formatted(date: .complete, time: .omitted))
+								.font(.headline)
+								.padding()
+							
+							Button(action: { 
+								selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? selectedDate 
+							}) {
+								Image(systemName: "chevron.right")
+							}
+						}
+						.padding()
+						
+						// 24-hour timeline
+						VStack(spacing: 0) {
+							ForEach(0..<24) { hour in
+								HourRow(hour: hour)
+							}
 						}
 					}
 				}
+				.navigationTitle("Schedule")
+			} else {
+				// Empty state
+				VStack(spacing: 30) {
+					Spacer()
+					
+					// Empty state illustration
+					VStack(spacing: 15) {
+						Image(systemName: "calendar.badge.clock")
+							.font(.system(size: 80))
+							.foregroundStyle(.blue.gradient)
+							.symbolEffect(.bounce)
+					}
+					.padding(.bottom, 20)
+					
+					// Empty state message
+					VStack(spacing: 12) {
+						Text("No Schedule Yet")
+							.font(.title2)
+							.fontWeight(.semibold)
+						
+						Text("Add your first flight to see your schedule")
+							.font(.body)
+							.foregroundColor(.gray)
+							.multilineTextAlignment(.center)
+					}
+					
+					// Call to action button
+					NavigationLink(destination: FlightsView()) {
+						HStack {
+							Image(systemName: "plus.circle.fill")
+							Text("Add Flight")
+						}
+						.font(.headline)
+						.foregroundColor(.white)
+						.frame(maxWidth: 200)
+						.padding()
+						.background(Color.blue)
+						.clipShape(RoundedRectangle(cornerRadius: 15))
+					}
+					.padding(.top, 20)
+					
+					Spacer()
+				}
+				.padding()
+				.navigationTitle("Schedule")
 			}
-			.navigationTitle("Schedule")
 		}
 	}
 }
