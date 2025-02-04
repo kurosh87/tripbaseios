@@ -125,7 +125,7 @@ struct SettingsView: View {
 					case .developer:
 						DeveloperSettingsView()
 					case .preferences:
-						UserPreferencesView()
+						PreferencesView()
 					default:
 						// If an undefined destination -> Show a Text with the setting label
 						ZStack {
