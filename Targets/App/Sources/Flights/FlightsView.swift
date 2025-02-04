@@ -5,69 +5,98 @@
 
 import SwiftUI
 import SharedKit
+import MapKit
+import CoreLocation
 
 struct FlightsView: View {
+    // Location manager for user location
+    @StateObject private var locationManager = LocationManager()
+    
+    // State for map region
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 37.3346, longitude: -122.0090), // Default to Apple Park
+        span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    )
+    
+    // State for map type
+    @State private var mapType: MKMapType = .standard
+    
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
-                Spacer()
+            ZStack {
+                // Full screen map
+                Map(coordinateRegion: $region,
+                    showsUserLocation: true,
+                    userTrackingMode: .constant(.follow),
+                    mapType: mapType)
+                    .ignoresSafeArea()
                 
-                // Empty state illustration
-                VStack(spacing: 15) {
-                    Image(systemName: "airplane.circle.fill")
-                        .font(.system(size: 80))
-                        .foregroundStyle(.blue.gradient)
-                        .symbolEffect(.bounce)
-                    
-                    Image(systemName: "arrow.triangle.2.circlepath")
-                        .font(.system(size: 30))
-                        .foregroundColor(.gray)
-                }
-                .padding(.bottom, 20)
-                
-                // Empty state message
-                VStack(spacing: 12) {
-                    Text("No Flights Yet")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    
-                    Text("Add your upcoming flights to see them here")
-                        .font(.body)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                }
-                
-                // Call to action button
-                Button(action: {
-                    // TODO: Implement add flight action
-                }) {
+                // Map controls
+                VStack {
+                    Spacer()
                     HStack {
-                        Image(systemName: "plus.circle.fill")
-                        Text("Add Flight")
+                        Spacer()
+                        VStack(spacing: 10) {
+                            // Map type toggle
+                            Button(action: {
+                                mapType = mapType == .standard ? .hybrid : .standard
+                            }) {
+                                Image(systemName: mapType == .standard ? "map" : "map.fill")
+                                    .padding()
+                                    .background(Color(.systemBackground))
+                                    .clipShape(Circle())
+                                    .shadow(radius: 4)
+                            }
+                            
+                            // Location button
+                            Button(action: {
+                                if let location = locationManager.location {
+                                    withAnimation {
+                                        region.center = location.coordinate
+                                    }
+                                }
+                            }) {
+                                Image(systemName: "location.fill")
+                                    .padding()
+                                    .background(Color(.systemBackground))
+                                    .clipShape(Circle())
+                                    .shadow(radius: 4)
+                            }
+                        }
+                        .padding()
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: 200)
-                    .padding()
-                    .background(Color.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
-                .padding(.top, 20)
-                
-                Spacer()
             }
-            .padding()
             .navigationTitle("Flights")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // TODO: Implement search action
+                        // TODO: Implement search
                     }) {
                         Image(systemName: "magnifyingglass")
                     }
                 }
             }
         }
+    }
+}
+
+// Location Manager to handle user location
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let locationManager = CLLocationManager()
+    @Published var location: CLLocation?
+    
+    override init() {
+        super.init()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = locations.last
     }
 }
 
