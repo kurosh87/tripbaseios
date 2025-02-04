@@ -35,6 +35,13 @@ struct SettingsView: View {
 					}
 				}
 
+				// Sleep & Routine Preferences Section
+				Section {
+					NavigationLink(value: SettingsPath.preferences) {
+						SettingsRowItem(.preferences)
+					}
+				}
+
 				// General Settings Sections
 				Section {
 					let generalSettings: [SettingsPath] = [
@@ -54,13 +61,6 @@ struct SettingsView: View {
 				Section {
 					NavigationLink(value: SettingsPath.premium) {
 						PremiumRow()
-					}
-				}
-
-				// Add new section for user preferences before the developer section
-				Section("Preferences") {
-					NavigationLink(value: SettingsPath.preferences) {
-						SettingsRowItem(.preferences)
 					}
 				}
 
