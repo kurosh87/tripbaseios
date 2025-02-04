@@ -10,6 +10,11 @@ import InAppPurchaseKit
 import NotifKit
 import SharedKit
 import SwiftUI
+import MapKit
+import CoreLocation
+
+// Import our Flights module
+@_exported import Flights
 
 // Home View Component
 struct HomeView: View {
