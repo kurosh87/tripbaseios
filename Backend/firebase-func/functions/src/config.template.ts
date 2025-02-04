@@ -12,7 +12,7 @@ export const rcApiKey = "YOUR_REVENUECAT_API_KEY";
 
 // AnalyticsKit Keys
 export const postHogAPIKey = "YOUR_POSTHOG_API_KEY";
-export const postHogHost = "https://us.i.posthog.com";
+export const postHogHost = "YOUR_POSTHOG_HOST";
 
 // OpenAI (AIKit) Keys
 export const openAIApiKey = "YOUR_OPENAI_API_KEY"; 

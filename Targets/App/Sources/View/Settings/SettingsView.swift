@@ -232,6 +232,8 @@ struct LinkRow: View {
 
 /// View for managing sleep and routine preferences
 fileprivate struct PreferencesView: View {
+	@EnvironmentObject var db: DB
+	
 	@AppStorage("wakeUpTime") private var wakeUpTime = Calendar.current.date(from: DateComponents(hour: 7, minute: 0)) ?? Date()
 	@AppStorage("bedTime") private var bedTime = Calendar.current.date(from: DateComponents(hour: 23, minute: 0)) ?? Date()
 	@AppStorage("chronotype") private var chronotype = "Bear (Middle of the Road)"
@@ -239,16 +241,40 @@ fileprivate struct PreferencesView: View {
 	@AppStorage("caffeineCutoffTime") private var caffeineCutoffTime = Calendar.current.date(from: DateComponents(hour: 14, minute: 0)) ?? Date()
 	@AppStorage("maxCaffeineIntake") private var maxCaffeineIntake = 400 // in mg
 	
+	private func updateFirebase() {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "HH:mm"
+		
+		Task {
+			let chronotypeMap = [
+				"Lion (Early Bird)": "EARLY_BIRD",
+				"Wolf (Night Owl)": "NIGHT_OWL",
+				"Bear (Middle of the Road)": "INTERMEDIATE",
+				"Dolphin (Light Sleeper)": "INTERMEDIATE"
+			]
+			
+			_ = await db.updateUserPreferences(
+				wakeUpTime: formatter.string(from: wakeUpTime),
+				bedTime: formatter.string(from: bedTime),
+				useMelatonin: usesMelatonin,
+				chronotype: chronotypeMap[chronotype] ?? "INTERMEDIATE",
+				maxDailyCaffeine: maxCaffeineIntake
+			)
+		}
+	}
+	
 	var body: some View {
 		Form {
 			Section(header: Text("Sleep Schedule")) {
 				DatePicker("Wake Up Time",
 						  selection: $wakeUpTime,
 						  displayedComponents: .hourAndMinute)
+					.onChange(of: wakeUpTime) { _ in updateFirebase() }
 				
 				DatePicker("Bed Time",
 						  selection: $bedTime,
 						  displayedComponents: .hourAndMinute)
+					.onChange(of: bedTime) { _ in updateFirebase() }
 			}
 			
 			Section(header: Text("Sleep Type")) {
@@ -258,10 +284,12 @@ fileprivate struct PreferencesView: View {
 					Text("Wolf (Night Owl)").tag("Wolf (Night Owl)")
 					Text("Dolphin (Light Sleeper)").tag("Dolphin (Light Sleeper)")
 				}
+				.onChange(of: chronotype) { _ in updateFirebase() }
 			}
 			
 			Section(header: Text("Sleep Aids")) {
 				Toggle("Uses Melatonin", isOn: $usesMelatonin)
+					.onChange(of: usesMelatonin) { _ in updateFirebase() }
 				if usesMelatonin {
 					Text("Remember to take melatonin 2 hours before bed time")
 						.font(.caption)
@@ -273,11 +301,13 @@ fileprivate struct PreferencesView: View {
 				DatePicker("Caffeine Cutoff Time",
 						  selection: $caffeineCutoffTime,
 						  displayedComponents: .hourAndMinute)
+					.onChange(of: caffeineCutoffTime) { _ in updateFirebase() }
 				
 				Stepper("Max Daily Caffeine: \(maxCaffeineIntake)mg",
 						value: $maxCaffeineIntake,
 						in: 0...1000,
 						step: 50)
+					.onChange(of: maxCaffeineIntake) { _ in updateFirebase() }
 				
 				Text("Recommended max is 400mg per day")
 					.font(.caption)
@@ -286,6 +316,9 @@ fileprivate struct PreferencesView: View {
 		}
 		.navigationTitle("Sleep & Routine")
 		.navigationBarTitleDisplayMode(.inline)
+		.onAppear {
+			updateFirebase() // Sync current values on appear
+		}
 	}
 }
 

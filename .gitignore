@@ -1,0 +1,32 @@
+# Firebase
+Backend/firebase-func/functions/tripbase-7f203-firebase-adminsdk-fbsvc-fe9727f3b7.json
+Backend/firebase-func/functions/src/config.ts
+*.log
+.env
+
+# Dependencies
+node_modules/
+.npm/
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp 

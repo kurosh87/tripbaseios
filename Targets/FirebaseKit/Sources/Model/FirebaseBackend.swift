@@ -158,6 +158,48 @@ extension DB {
 	}
 }
 
+// MARK: - User Preferences
+extension DB {
+	public func updateUserPreferences(
+		wakeUpTime: String? = nil,
+		bedTime: String? = nil,
+		useMelatonin: Bool? = nil,
+		melatoninDosage: Int? = nil,
+		chronotype: String? = nil,
+		caffeineSensitivity: String? = nil,
+		maxDailyCaffeine: Int? = nil
+	) async -> Bool {
+		Analytics.capture(.info, id: "update_user_preferences_called", source: .db)
+		
+		guard let userId = currentUser?.uid else {
+			Analytics.capture(.error, id: "update_user_preferences", longDescription: "No user logged in", source: .db)
+			return false
+		}
+		
+		var updateData: [String: Any] = [:]
+		
+		if let wakeUpTime = wakeUpTime { updateData["wakeUpTime"] = wakeUpTime }
+		if let bedTime = bedTime { updateData["bedTime"] = bedTime }
+		if let useMelatonin = useMelatonin { updateData["useMelatonin"] = useMelatonin }
+		if let melatoninDosage = melatoninDosage { updateData["melatoninDosage"] = melatoninDosage }
+		if let chronotype = chronotype { updateData["chronotype"] = chronotype }
+		if let caffeineSensitivity = caffeineSensitivity { updateData["caffeineSensitivity"] = caffeineSensitivity }
+		if let maxDailyCaffeine = maxDailyCaffeine { updateData["maxDailyCaffeine"] = maxDailyCaffeine }
+		
+		updateData["lastUpdated"] = ISO8601DateFormatter().string(from: Date())
+		updateData["userId"] = userId
+		
+		do {
+			try await _db.collection("userPreferences").document(userId).setData(updateData, merge: true)
+			Analytics.capture(.success, id: "update_user_preferences", source: .db)
+			return true
+		} catch {
+			Analytics.capture(.error, id: "update_user_preferences", longDescription: error.localizedDescription, source: .db)
+			return false
+		}
+	}
+}
+
 // MARK: - Only for App.swift
 extension DB {
 	// We dont do this inside init of DB because we don't want to init Firebase every time we initialize

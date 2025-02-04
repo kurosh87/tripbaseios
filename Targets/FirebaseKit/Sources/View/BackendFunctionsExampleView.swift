@@ -5,13 +5,39 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct BackendFunctionsExampleView: View {
 
 	@EnvironmentObject var db: DB
 	@State private var users: [FetchedUser] = []
+	@State private var userPreferences: [String: UserPreferences] = [:]  // Store preferences by user ID
 
 	init() {}
+
+	func setupPreferencesListener(for userId: String) {
+		Firestore.firestore().collection("userPreferences").document(userId)
+			.addSnapshotListener { documentSnapshot, error in
+				guard let document = documentSnapshot else {
+					print("Error fetching preferences: \(error?.localizedDescription ?? "Unknown error")")
+					return
+				}
+				
+				if let data = document.data() {
+					userPreferences[userId] = UserPreferences(
+						wakeUpTime: data["wakeUpTime"] as? String ?? "07:00",
+						bedTime: data["bedTime"] as? String ?? "23:00",
+						useMelatonin: data["useMelatonin"] as? Bool ?? false,
+						melatoninDosage: data["melatoninDosage"] as? Int,
+						chronotype: data["chronotype"] as? String ?? "INTERMEDIATE",
+						caffeineSensitivity: data["caffeineSensitivity"] as? String ?? "MEDIUM",
+						maxDailyCaffeine: data["maxDailyCaffeine"] as? Int,
+						lastUpdated: data["lastUpdated"] as? String ?? "",
+						userId: userId
+					)
+				}
+			}
+	}
 
 	var body: some View {
 		VStack {
@@ -19,6 +45,10 @@ struct BackendFunctionsExampleView: View {
 				Button("Fetch Users") {
 					Task {
 						users = await db.fetchAllBackendUsers()
+						// Set up listeners for all users
+						for user in users {
+							setupPreferencesListener(for: user.userID)
+						}
 					}
 				}
 			} else {
@@ -48,6 +78,55 @@ struct BackendFunctionsExampleView: View {
 							Text("Premium Status")
 								.badge(user.userHasPremium ? "Has Premium, yay!" : "No Premium")
 
+							// User Preferences
+							if let prefs = userPreferences[user.userID] {
+								Group {
+									HStack {
+										Text("Sleep Schedule")
+										Spacer()
+										Text("\(prefs.wakeUpTime) - \(prefs.bedTime)")
+											.foregroundStyle(.secondary)
+									}
+									
+									HStack {
+										Text("Sleep Type")
+										Spacer()
+										Text(prefs.chronotype.capitalized)
+											.foregroundStyle(.secondary)
+									}
+									
+									HStack {
+										Text("Melatonin Use")
+										Spacer()
+										if prefs.useMelatonin {
+											if let dose = prefs.melatoninDosage {
+												Text("\(dose)mg")
+											} else {
+												Text("Yes")
+											}
+										} else {
+											Text("No")
+										}
+									}
+									
+									HStack {
+										Text("Caffeine Sensitivity")
+										Spacer()
+										Text(prefs.caffeineSensitivity)
+											.foregroundStyle(.secondary)
+									}
+									
+									if let maxCaffeine = prefs.maxDailyCaffeine {
+										HStack {
+											Text("Max Daily Caffeine")
+											Spacer()
+											Text("\(maxCaffeine)mg")
+												.foregroundStyle(.secondary)
+										}
+									}
+								}
+							}
+
 							SendNotificationButton(userID: user.userID)
 						}
 					}
@@ -61,6 +140,10 @@ struct BackendFunctionsExampleView: View {
 		.onAppear {
 			Task {
 				users = await db.fetchAllBackendUsers()
+				// Set up listeners for all users
+				for user in users {
+					setupPreferencesListener(for: user.userID)
+				}
 			}
 		}
 
@@ -106,4 +189,17 @@ struct SendNotificationButton: View {
 		}
 
 	}
+}
+
+// Helper struct to parse UserPreferences
+struct UserPreferences {
+	let wakeUpTime: String
+	let bedTime: String
+	let useMelatonin: Bool
+	let melatoninDosage: Int?
+	let chronotype: String
+	let caffeineSensitivity: String
+	let maxDailyCaffeine: Int?
+	let lastUpdated: String
+	let userId: String
 }

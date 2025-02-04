@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User preferences rules
+    match /userPreferences/{userId} {
+      // Allow read if the user is authenticated and accessing their own preferences
+      allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow write if the user is authenticated, accessing their own preferences,
+      // and the data is properly formatted
+      allow write: if request.auth != null 
+        && request.auth.uid == userId
+        && request.resource.data.userId == userId
+        && request.resource.data.lastUpdated is string
+        && (request.resource.data.wakeUpTime == null || request.resource.data.wakeUpTime.matches('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$'))
+        && (request.resource.data.bedTime == null || request.resource.data.bedTime.matches('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$'))
+        && (request.resource.data.chronotype == null || request.resource.data.chronotype in ['EARLY_BIRD', 'NIGHT_OWL', 'INTERMEDIATE'])
+        && (request.resource.data.caffeineSensitivity == null || request.resource.data.caffeineSensitivity in ['LOW', 'MEDIUM', 'HIGH']);
+    }
+    
+    // Add other collection rules here...
+  }
+} 
