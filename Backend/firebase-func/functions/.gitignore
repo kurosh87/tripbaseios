@@ -10,3 +10,5 @@ node_modules/
 
 # Config file with sensitive data
 src/config.ts
+# But allow the template
+!src/config.template.ts
