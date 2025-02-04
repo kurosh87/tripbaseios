@@ -34,35 +34,16 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 // FlightsView Component
 struct FlightsView: View {
 	@StateObject private var locationManager = LocationManager()
-	
 	@State private var region = MKCoordinateRegion(
 		center: CLLocationCoordinate2D(latitude: 37.3346, longitude: -122.0090),
 		span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
 	)
 	
-	@State private var mapType: MKMapType = .standard
-	
 	var body: some View {
 		NavigationStack {
-			Map(
-				coordinateRegion: $region,
-				showsUserLocation: true,
-				userTrackingMode: .constant(.follow),
-				mapStyle: mapType == .standard ? .standard : .hybrid
-			)
-			.ignoresSafeArea(edges: .vertical)
-			.overlay(alignment: .bottomTrailing) {
-				VStack(spacing: 10) {
-					Button(action: {
-						mapType = mapType == .standard ? .hybrid : .standard
-					}) {
-						Image(systemName: mapType == .standard ? "map" : "map.fill")
-							.padding()
-							.background(Color(.systemBackground))
-							.clipShape(Circle())
-							.shadow(radius: 4)
-					}
-					
+			Map(coordinateRegion: $region)
+				.ignoresSafeArea(edges: .vertical)
+				.overlay(alignment: .bottomTrailing) {
 					Button(action: {
 						if let location = locationManager.location {
 							withAnimation {
@@ -76,20 +57,19 @@ struct FlightsView: View {
 							.clipShape(Circle())
 							.shadow(radius: 4)
 					}
+					.padding()
 				}
-				.padding()
-			}
-			.navigationTitle("Flights")
-			.navigationBarTitleDisplayMode(.inline)
-			.toolbar {
-				ToolbarItem(placement: .navigationBarTrailing) {
-					Button(action: {
-						// TODO: Implement search
-					}) {
-						Image(systemName: "magnifyingglass")
+				.navigationTitle("Flights")
+				.navigationBarTitleDisplayMode(.inline)
+				.toolbar {
+					ToolbarItem(placement: .navigationBarTrailing) {
+						Button(action: {
+							// TODO: Implement search
+						}) {
+							Image(systemName: "magnifyingglass")
+						}
 					}
 				}
-			}
 		}
 	}
 }
