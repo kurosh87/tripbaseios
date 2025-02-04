@@ -37,9 +37,7 @@ struct SettingsView: View {
 
 				// Sleep & Routine Preferences Section
 				Section {
-					NavigationLink(value: SettingsPath.preferences) {
-						SettingsRowItem(.preferences)
-					}
+					SettingsRowItem(.preferences)
 				}
 
 				// General Settings Sections

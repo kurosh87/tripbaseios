@@ -16,6 +16,15 @@ import {
     deleteUserPreferences,
     cleanupUserPreferences
 } from './controllers/userPreferences';
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import {
+    saveFlightItinerary,
+    getUserFlightItineraries,
+    getFlightItinerary,
+    updateFlightItinerary,
+    deleteFlightItinerary
+} from './controllers/flightController';
 
 // Types
 export type AxiosErrorType = {
@@ -177,3 +186,94 @@ export {
     deleteUserPreferences,
     cleanupUserPreferences
 };
+
+// Flight Itinerary Endpoints
+
+// Save a new flight itinerary
+export const createFlightItinerary = functions.https.onCall(async (data, context) => {
+    // Check if user is authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'User must be authenticated to save flight itineraries'
+        );
+    }
+
+    return await saveFlightItinerary(context.auth.uid, data);
+});
+
+// Get all flight itineraries for a user
+export const getFlightItineraries = functions.https.onCall(async (data, context) => {
+    // Check if user is authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'User must be authenticated to retrieve flight itineraries'
+        );
+    }
+
+    return await getUserFlightItineraries(context.auth.uid);
+});
+
+// Get a specific flight itinerary
+export const getSingleFlightItinerary = functions.https.onCall(async (data, context) => {
+    // Check if user is authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'User must be authenticated to retrieve flight itineraries'
+        );
+    }
+
+    // Check if itineraryId is provided
+    if (!data.itineraryId) {
+        throw new functions.https.HttpsError(
+            'invalid-argument',
+            'The function must be called with an itineraryId'
+        );
+    }
+
+    return await getFlightItinerary(context.auth.uid, data.itineraryId);
+});
+
+// Update a flight itinerary
+export const updateExistingFlightItinerary = functions.https.onCall(async (data, context) => {
+    // Check if user is authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'User must be authenticated to update flight itineraries'
+        );
+    }
+
+    // Check if required data is provided
+    if (!data.itineraryId || !data.updates) {
+        throw new functions.https.HttpsError(
+            'invalid-argument',
+            'The function must be called with itineraryId and updates'
+        );
+    }
+
+    return await updateFlightItinerary(context.auth.uid, data.itineraryId, data.updates);
+});
+
+// Delete a flight itinerary
+export const deleteExistingFlightItinerary = functions.https.onCall(async (data, context) => {
+    // Check if user is authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'User must be authenticated to delete flight itineraries'
+        );
+    }
+
+    // Check if itineraryId is provided
+    if (!data.itineraryId) {
+        throw new functions.https.HttpsError(
+            'invalid-argument',
+            'The function must be called with an itineraryId'
+        );
+    }
+
+    return await deleteFlightItinerary(context.auth.uid, data.itineraryId);
+});

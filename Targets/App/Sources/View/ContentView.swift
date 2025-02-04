@@ -20,6 +20,7 @@ import SharedKit
 import SwiftUI
 import MapKit
 import CoreLocation
+import FirebaseFunctions
 
 /// Manages the user's location services and authorization
 /// Provides real-time location updates for the map view
@@ -51,24 +52,96 @@ struct FlightsView: View {
 		center: CLLocationCoordinate2D(latitude: 37.3346, longitude: -122.0090),
 		span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
 	)
+	@State private var showingAlert = false
+	@State private var alertMessage = ""
+	
+	// Function to create a sample flight itinerary
+	func createSampleItinerary() async {
+		do {
+			let functions = Functions.functions()
+			
+			// Sample flight data
+			let sampleFlight: [String: Any] = [
+				"segments": [[
+					"flightNumber": "UA123",
+					"airline": [
+						"code": "UA",
+						"name": "United Airlines"
+					],
+					"departure": [
+						"airport": [
+							"code": "SFO",
+							"name": "San Francisco International",
+							"city": "San Francisco",
+							"country": "USA",
+							"location": [
+								"latitude": 37.7749,
+								"longitude": -122.4194
+							]
+						],
+						"scheduledTime": "2024-03-15T10:00:00Z"
+					],
+					"arrival": [
+						"airport": [
+							"code": "JFK",
+							"name": "John F. Kennedy International",
+							"city": "New York",
+							"country": "USA",
+							"location": [
+								"latitude": 40.7128,
+								"longitude": -74.0060
+							]
+						],
+						"scheduledTime": "2024-03-15T18:00:00Z"
+					],
+					"status": "SCHEDULED"
+				]],
+				"tripName": "Test Flight to NYC"
+			]
+			
+			let result = try await functions.httpsCallable("createFlightItinerary").call(sampleFlight)
+			alertMessage = "Flight itinerary created successfully!"
+			showingAlert = true
+		} catch {
+			alertMessage = "Error creating flight: \(error.localizedDescription)"
+			showingAlert = true
+		}
+	}
 	
 	var body: some View {
 		NavigationStack {
 			Map(coordinateRegion: $region)
 				.ignoresSafeArea(edges: .vertical)
 				.overlay(alignment: .bottomTrailing) {
-					Button(action: {
-						if let location = locationManager.location {
-							withAnimation {
-								region.center = location.coordinate
+					VStack {
+						// Test button for creating sample itinerary
+						Button(action: {
+							Task {
+								await createSampleItinerary()
 							}
+						}) {
+							Label("Add Test Flight", systemImage: "plus.circle.fill")
+								.padding()
+								.background(Color(.systemBackground))
+								.clipShape(Capsule())
+								.shadow(radius: 4)
 						}
-					}) {
-						Image(systemName: "location.fill")
-							.padding()
-							.background(Color(.systemBackground))
-							.clipShape(Circle())
-							.shadow(radius: 4)
+						.padding(.bottom, 8)
+						
+						// Existing location button
+						Button(action: {
+							if let location = locationManager.location {
+								withAnimation {
+									region.center = location.coordinate
+								}
+							}
+						}) {
+							Image(systemName: "location.fill")
+								.padding()
+								.background(Color(.systemBackground))
+								.clipShape(Circle())
+								.shadow(radius: 4)
+						}
 					}
 					.padding()
 				}
@@ -82,6 +155,11 @@ struct FlightsView: View {
 							Image(systemName: "magnifyingglass")
 						}
 					}
+				}
+				.alert("Flight Itinerary", isPresented: $showingAlert) {
+					Button("OK", role: .cancel) { }
+				} message: {
+					Text(alertMessage)
 				}
 		}
 	}
