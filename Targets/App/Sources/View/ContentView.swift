@@ -220,6 +220,13 @@ struct ContentView: View {
 				SettingsView()
 			}
 		}
+		.onAppear {
+			// Set the tab bar background to be solid
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			UITabBar.appearance().scrollEdgeAppearance = appearance
+			UITabBar.appearance().standardAppearance = appearance
+		}
 	}
 }
 
