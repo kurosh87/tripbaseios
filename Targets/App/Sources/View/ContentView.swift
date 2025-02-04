@@ -11,27 +11,6 @@ import NotifKit
 import SharedKit
 import SwiftUI
 
-// Flights View Component
-struct FlightsView: View {
-	var body: some View {
-		NavigationView {
-			VStack(spacing: 20) {
-				Image(systemName: "airplane")
-					.font(.system(size: 60))
-					.foregroundColor(.blue)
-					.padding()
-				
-				Text("Flights Coming Soon")
-					.font(.title2)
-				
-				Text("This feature is under development")
-					.foregroundColor(.gray)
-			}
-			.navigationTitle("Flights")
-		}
-	}
-}
-
 // Home View Component
 struct HomeView: View {
 	@State private var selectedDate = Date()
@@ -163,7 +142,7 @@ struct ContentView: View {
 				HomeView()
 			}
 
-			// Flights placeholder screen
+			// Flights screen with MapKit
 			Tab("Flights", systemImage: "airplane") {
 				FlightsView()
 			}
