@@ -230,6 +230,65 @@ struct LinkRow: View {
 	}
 }
 
+/// View for managing sleep and routine preferences
+fileprivate struct PreferencesView: View {
+	@AppStorage("wakeUpTime") private var wakeUpTime = Calendar.current.date(from: DateComponents(hour: 7, minute: 0)) ?? Date()
+	@AppStorage("bedTime") private var bedTime = Calendar.current.date(from: DateComponents(hour: 23, minute: 0)) ?? Date()
+	@AppStorage("chronotype") private var chronotype = "Bear (Middle of the Road)"
+	@AppStorage("usesMelatonin") private var usesMelatonin = false
+	@AppStorage("caffeineCutoffTime") private var caffeineCutoffTime = Calendar.current.date(from: DateComponents(hour: 14, minute: 0)) ?? Date()
+	@AppStorage("maxCaffeineIntake") private var maxCaffeineIntake = 400 // in mg
+	
+	var body: some View {
+		Form {
+			Section(header: Text("Sleep Schedule")) {
+				DatePicker("Wake Up Time",
+						  selection: $wakeUpTime,
+						  displayedComponents: .hourAndMinute)
+				
+				DatePicker("Bed Time",
+						  selection: $bedTime,
+						  displayedComponents: .hourAndMinute)
+			}
+			
+			Section(header: Text("Sleep Type")) {
+				Picker("Sleep Type", selection: $chronotype) {
+					Text("Lion (Early Bird)").tag("Lion (Early Bird)")
+					Text("Bear (Middle of the Road)").tag("Bear (Middle of the Road)")
+					Text("Wolf (Night Owl)").tag("Wolf (Night Owl)")
+					Text("Dolphin (Light Sleeper)").tag("Dolphin (Light Sleeper)")
+				}
+			}
+			
+			Section(header: Text("Sleep Aids")) {
+				Toggle("Uses Melatonin", isOn: $usesMelatonin)
+				if usesMelatonin {
+					Text("Remember to take melatonin 2 hours before bed time")
+						.font(.caption)
+						.foregroundColor(.gray)
+				}
+			}
+			
+			Section(header: Text("Caffeine Management")) {
+				DatePicker("Caffeine Cutoff Time",
+						  selection: $caffeineCutoffTime,
+						  displayedComponents: .hourAndMinute)
+				
+				Stepper("Max Daily Caffeine: \(maxCaffeineIntake)mg",
+						value: $maxCaffeineIntake,
+						in: 0...1000,
+						step: 50)
+				
+				Text("Recommended max is 400mg per day")
+					.font(.caption)
+					.foregroundColor(.gray)
+			}
+		}
+		.navigationTitle("Sleep & Routine")
+		.navigationBarTitleDisplayMode(.inline)
+	}
+}
+
 enum SettingsPath: Hashable, Equatable {
 	case account
 	case general
